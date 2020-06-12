@@ -23,7 +23,10 @@ jobs:
       - name: anchore inline scan JSON results
         run: for j in `ls ./anchore-reports/*.json`; do echo "---- ${j} ----"; cat ${j}; echo; done
       - name: anchore action SARIF report
-        run: cat results.sarif
+      - name: anchore action SARIF report
+        run: |
+          sed -i.bak -e 's|"fullyQualifiedName": "dockerfile"|"fullyQualifiedName": "distribution.dockerfile"|g' results.sarif   
+          cat results.sarif
       - name: upload Anchore scan SARIF report
         uses: github/codeql-action/upload-sarif@v1
         with:
@@ -44,7 +47,9 @@ jobs:
       - name: anchore inline scan JSON results
         run: for j in `ls ./anchore-reports/*.json`; do echo "---- ${j} ----"; cat ${j}; echo; done
       - name: anchore action SARIF report
-        run: cat results.sarif
+        run: |
+          sed -i.bak -e 's|"fullyQualifiedName": "dockerfile"|"fullyQualifiedName": "submission.dockerfile"|g' results.sarif   
+          cat results.sarif
       - name: upload Anchore scan SARIF report
         uses: github/codeql-action/upload-sarif@v1
         with:
