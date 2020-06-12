@@ -25,6 +25,7 @@ jobs:
       - name: Prepare SARIF report for distribution Dockerfile
         run: |
           sed -i.bak -e 's|"fullyQualifiedName": "dockerfile"|"fullyQualifiedName": "distribution.dockerfile"|g' results.sarif   
+          sed -i.bak -e 's|"name": "Anchore Container Vulnerability Report"|"name": "Anchore Distribution Docker"|g' results.sarif
           cat results.sarif
       - name: upload Anchore scan SARIF report
         uses: github/codeql-action/upload-sarif@v1
@@ -47,7 +48,8 @@ jobs:
         run: for j in `ls ./anchore-reports/*.json`; do echo "---- ${j} ----"; cat ${j}; echo; done
       - name: Prepare SARIF report for submission dockerfile
         run: |
-          sed -i.bak -e 's|"fullyQualifiedName": "dockerfile"|"fullyQualifiedName": "submission.dockerfile"|g' results.sarif   
+          sed -i.bak -e 's|"fullyQualifiedName": "dockerfile"|"fullyQualifiedName": "submission.dockerfile"|g' results.sarif
+          sed -i.bak -e 's|"name": "Anchore Container Vulnerability Report"|"name": "Anchore Submission Docker"|g' results.sarif
           cat results.sarif
       - name: upload Anchore scan SARIF report
         uses: github/codeql-action/upload-sarif@v1
