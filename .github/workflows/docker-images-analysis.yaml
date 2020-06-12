@@ -22,8 +22,7 @@ jobs:
           acs-report-severity-cutoff: "High"
       - name: anchore inline scan JSON results
         run: for j in `ls ./anchore-reports/*.json`; do echo "---- ${j} ----"; cat ${j}; echo; done
-      - name: anchore action SARIF report
-      - name: anchore action SARIF report
+      - name: Prepare SARIF report for distribution Dockerfile
         run: |
           sed -i.bak -e 's|"fullyQualifiedName": "dockerfile"|"fullyQualifiedName": "distribution.dockerfile"|g' results.sarif   
           cat results.sarif
@@ -46,7 +45,7 @@ jobs:
           acs-report-severity-cutoff: "High"
       - name: anchore inline scan JSON results
         run: for j in `ls ./anchore-reports/*.json`; do echo "---- ${j} ----"; cat ${j}; echo; done
-      - name: anchore action SARIF report
+      - name: Prepare SARIF report for submission dockerfile
         run: |
           sed -i.bak -e 's|"fullyQualifiedName": "dockerfile"|"fullyQualifiedName": "submission.dockerfile"|g' results.sarif   
           cat results.sarif
